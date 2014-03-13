@@ -16,19 +16,23 @@ class Chromosome
    * @param cities The order that this chromosome would 
    * visit the cities.
    */
-	int path;
+	long path;
 	/*
 	
 	Reference for the city encoding
-
+	@params lenEncoding is the number of bits encoding a city in the path field
 	*/
 	int[] cityReference;
-
-  Chromosome(int[] cities)
+	/*
+	Length of city encoding in a path
+	*/
+	int lenEncoding;
+  Chromosome(int[] cities, int lenEncoding)
   {
 	this.cityReference = cities;
+	this.lenEncoding = lenEncoding;
   	//Generating random path using Knuth shuffle
-	for (int i=cities.length; i>=0; --i){
+	for (int i=cities.length-1; i>=0; --i){
 		int j = getRandomIndex(0,i);
 		int tmp = cities[j];
 		cities[j] = cities[i];
@@ -39,7 +43,9 @@ class Chromosome
 	for (int city:cities){
 		binEncoding +=Integer.toBinaryString(city);
 	}
-	path = Integer.parseInt(binEncoding,2);
+	System.out.println(binEncoding);
+	System.out.println("This is a "+binEncoding.length()+" bits number");
+	path = Long.parseLong(binEncoding,2);
   }
 
   /**

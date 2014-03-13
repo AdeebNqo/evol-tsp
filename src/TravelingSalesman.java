@@ -156,7 +156,7 @@ public class TravelingSalesman extends
 	int[] cityRepresentations = getbitstrings(cityCount, numbits);
 	chromosomes = new Chromosome[populationSize];
 	for (int i=0; i<populationSize; ++i){
-		chromosomes[i] = new Chromosome(cityRepresentations);
+		chromosomes[i] = new Chromosome(cityRepresentations,numbits);
 	}
 
 // start up the background thread
