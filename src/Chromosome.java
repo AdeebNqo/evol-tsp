@@ -16,12 +16,30 @@ class Chromosome
    * @param cities The order that this chromosome would 
    * visit the cities.
    */
+	int path;
+	/*
+	
+	Reference for the city encoding
 
-  Chromosome(City [] cities) 
+	*/
+	int[] cityReference;
+
+  Chromosome(int[] cities)
   {
-
-  // TO DO
-      
+	this.cityReference = cities;
+  	//Generating random path using Knuth shuffle
+	for (int i=cities.length; i>=0; --i){
+		int j = getRandomIndex(0,i);
+		int tmp = cities[j];
+		cities[j] = cities[i];
+		cities[i] = tmp;
+	}
+	//encoding the path into one string
+	String binEncoding ="";
+	for (int city:cities){
+		binEncoding +=Integer.toBinaryString(city);
+	}
+	path = Integer.parseInt(binEncoding,2);
   }
 
   /**
@@ -110,5 +128,12 @@ class Chromosome
       }
     }
   }
+	/*
+	
+	Method for generating nums in a range
 
+	*/
+	public int getRandomIndex(int min, int max){
+		return min + (int)(Math.random() * ((max - min) + 1));
+	}
 }

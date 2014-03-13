@@ -152,8 +152,12 @@ public class TravelingSalesman extends
 	    }
 
 // create the initial population of chromosomes
-	int numbits = (int)Math.ceil(1.5);
-// TO DO
+	int numbits = (int)Math.ceil(Math.log((double)cityCount)/Math.log(2));
+	int[] cityRepresentations = getbitstrings(cityCount, numbits);
+	chromosomes = new Chromosome[populationSize];
+	for (int i=0; i<populationSize; ++i){
+		chromosomes[i] = new Chromosome(cityRepresentations);
+	}
 
 // start up the background thread
 
@@ -262,4 +266,38 @@ public class TravelingSalesman extends
   {
 	  update();
   }
+
+	/*
+
+	Method and class for generating bit strings
+		
+	@returns Bit strings of length lenString in amount Numstrings	
+	*/
+	public class BitString{
+		int i=0;
+		double upperBound;
+		public BitString(int len){
+			upperBound = Math.pow(2,len)-1;		
+		}
+		public int next() throws Exception{
+			if (i<upperBound){
+				return i++;
+			}
+			else{
+				throw new Exception("Cannot generate binary string");
+			}
+		}
+	}
+	public int[] getbitstrings(int Numstrings,int lenString){
+		int[] temp = new int[Numstrings];
+		BitString stringCreator = new BitString(lenString);
+		for (int i=0; i<Numstrings; ++i){
+			try{
+				temp[i] = stringCreator.next();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return temp;
+	}
 }
