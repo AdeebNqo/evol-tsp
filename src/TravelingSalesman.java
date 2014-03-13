@@ -152,7 +152,7 @@ public class TravelingSalesman extends
 	    }
 
 // create the initial population of chromosomes
-
+	int numbits = (int)Math.ceil(1.5);
 // TO DO
 
 // start up the background thread
