@@ -91,7 +91,7 @@ class Chromosome {
 	 */
 
 	int mate() {
-		int one;
+		transpose();
 		return 0;
 	}
 	/*
@@ -108,13 +108,11 @@ class Chromosome {
 		cityList[indextwo] = temp;
 	}
 	/*
-	
 	mutation:
-	Point exchange
-	
+	Inversion
 	*/
-	private void pointexchange(){
-		int pivotpoint = getindex
+	private void inversion(){
+
 	}
 	/**
 	 * Sort the chromosomes by their cost.
