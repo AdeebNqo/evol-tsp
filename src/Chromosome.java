@@ -94,7 +94,28 @@ class Chromosome {
 		int one;
 		return 0;
 	}
-
+	/*
+	
+	mutation:
+	Transposition
+	
+	*/
+	private void transpose(){
+		int indexone = getRandomIndex(0, cityList.length);
+		int indextwo = getRandomIndex(0, cityList.length);
+		int temp = cityList[indexone];
+		cityList[indexone] = cityList[indextwo];
+		cityList[indextwo] = temp;
+	}
+	/*
+	
+	mutation:
+	Point exchange
+	
+	*/
+	private void pointexchange(){
+		int pivotpoint = getindex
+	}
 	/**
 	 * Sort the chromosomes by their cost.
 	 * 
