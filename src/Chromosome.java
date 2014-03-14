@@ -1,4 +1,4 @@
-class Chromosome implements Comparator<Chromosome{
+class Chromosome{
 	/**
 	 * The list of cities, which are the genes of this chromosome.
 	 */
@@ -149,20 +149,5 @@ class Chromosome implements Comparator<Chromosome{
 	 */
 	public int getRandomIndex(int min, int max) {
 		return min + (int) (Math.random() * ((max - min) + 1));
-	}
-	/*
-	Method for allowing comparisons between chromosomes
-
-	*/
-	public compare(Chromosome one, Chromosome two){
-		if (one.cost == two.cost){
-			return 0;
-		}
-		else if (one.cost > two.cost){
-			return 1
-		}
-		else{
-			return -1
-		}
 	}
 }
