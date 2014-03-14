@@ -9,26 +9,24 @@ class Chromosome {
 	 */
 	protected double cost;
 
-	/**
-	 * @param cities
-	 *            The order that this chromosome would visit the cities.
-	 */
-	int[][] genotype;
-	/*
-	 * 
-	 * Reference for the city encoding
-	 * 
-	 * @params lenEncoding is the number of bits encoding a city in the path
-	 * field
-	 */
-	int[] cityReference;
-	/*
-	 * Length of city encoding in a path
-	 */
-	int lenEncoding;
-
-	Chromosome(City[] cities, int lenEncoding) {
-
+	Chromosome(City[] cities) {
+		cityList = new int[cities.length];
+		for  (int i=0; i<cities.length; ++i){
+			cityList[i] = i;		
+		}
+		//randomising path using Knuth shuffle
+		for (int i=cities.length-1; i>=0; --i){
+			int j = getRandomIndex(0,i);
+			int temp = cityList[j];
+			cityList[j] = cityList[i];
+			cityList[i] = temp;
+		}
+		//chromosome applies cost function to itself
+		City[] tmp = new City[cities.length];		
+		for (int i=0; i<cities.length; ++i){
+			tmp[i] = cities[cityList[i]];
+		}
+		calculateCost(tmp);
 	}
 
 	/**
