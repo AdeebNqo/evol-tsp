@@ -13,7 +13,13 @@ class PopulationPool{
 			add(item);
 		}
 	}
-	public int getSurvivors(){
-		return 0;
+	public Chromosome[] getSurvivors(SurvivorSelection mode){
+		switch(mode){
+			case Elitism:
+				break;
+			case Tornament:
+				break;
+		}
+		return null;
 	}
 }

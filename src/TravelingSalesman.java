@@ -224,7 +224,18 @@ public class TravelingSalesman extends Applet implements Runnable {
 
 			generation++;
 
-			// TO DO
+			// start
+
+			PopulationPool pool = new PopulationPool();
+			for (int i=0; i<populationSize; ++i){
+				//cloning chromosome, mutating clone, adding it to pool
+				Chromosome offspring = new Chromosome(chromosomes[getRandomIndex(0,chromosomes.length-1)]);
+				offspring.mate();
+				pool.add(offspring);
+			}
+			//selecting surviving population
+			chromosomes = pool.getSurvivors(SurvivorSelection.Elitism);
+
 
 			Chromosome.sortChromosomes(chromosomes, matingPopulationSize);
 
@@ -245,5 +256,12 @@ public class TravelingSalesman extends Applet implements Runnable {
 
 	public void paint(Graphics g) {
 		update();
+	}
+		/*
+	 * 
+	 * Method for generating nums in a range
+	 */
+	public int getRandomIndex(int min, int max) {
+		return min + (int) (Math.random() * ((max - min) + 1));
 	}
 }
