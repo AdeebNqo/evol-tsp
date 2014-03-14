@@ -87,12 +87,11 @@ class Chromosome {
 
 	/*
 	 * 
-	 * mate: Variation (cross-over and/or mutation method)
+	 * mate: mutation method
 	 */
 
 	int mate() {
-
-		// TO DO
+		int one;
 		return 0;
 	}
 
@@ -124,8 +123,8 @@ class Chromosome {
 	/*
 	 * 
 	 * Method for generating nums in a range
-	 *
+	 */
 	public int getRandomIndex(int min, int max) {
 		return min + (int) (Math.random() * ((max - min) + 1));
-	}*/
+	}
 }
