@@ -4,297 +4,281 @@ import java.awt.event.*;
 import java.text.*;
 
 /**
- * This class implements the Traveling Salesman problem
- * as a Java applet.
+ * This class implements the Traveling Salesman problem as a Java applet.
  */
 
-public class TravelingSalesman extends
-	Applet
-  implements Runnable {
+public class TravelingSalesman extends Applet implements Runnable {
 
-  /**
-   * How many cities to use.
-   */
+	/**
+	 * How many cities to use.
+	 */
 	protected int cityCount;
 
-  /**
-   * How many chromosomes to use.
-   */
-  protected int populationSize;
+	/**
+	 * How many chromosomes to use.
+	 */
+	protected int populationSize;
 
-  /**
-   * The part of the population eligable for mateing.
-   */
-  protected int matingPopulationSize;
+	/**
+	 * The part of the population eligable for mateing.
+	 */
+	protected int matingPopulationSize;
 
-  /**
-   * The part of the population selected for mating.
-   */
-  protected int selectedParents;
+	/**
+	 * The part of the population selected for mating.
+	 */
+	protected int selectedParents;
 
-  /**
-   * The current generation
-   */
-  protected int generation;
+	/**
+	 * The current generation
+	 */
+	protected int generation;
 
-  /**
-   * The background worker thread.
-   */
-  protected Thread worker = null;
+	/**
+	 * The background worker thread.
+	 */
+	protected Thread worker = null;
 
-  /**
-   * Is the thread started.
-   */
-  protected boolean started = false;
+	/**
+	 * Is the thread started.
+	 */
+	protected boolean started = false;
 
-  /**
-   * The list of cities.
-   */
-  protected City [] cities;
+	/**
+	 * The list of cities.
+	 */
+	protected City[] cities;
 
-  /**
-   * The list of chromosomes.
-   */
-  protected Chromosome [] chromosomes;
+	/**
+	 * The list of chromosomes.
+	 */
+	protected Chromosome[] chromosomes;
 
-  /**
-   * The Start button.
-   */
-  private Button ctrlStart;
+	/**
+	 * The Start button.
+	 */
+	private Button ctrlStart;
 
-  /**
-   * The TextField that holds the number of cities.
-   */
-  private TextField ctrlCities;
+	/**
+	 * The TextField that holds the number of cities.
+	 */
+	private TextField ctrlCities;
 
-  /**
-   * The TextField for the population size.
-   */
-  private TextField ctrlPopulationSize;
+	/**
+	 * The TextField for the population size.
+	 */
+	private TextField ctrlPopulationSize;
 
-  /**
-   * Holds the buttons and other controls, forms a strip across
-   * the bottom of the applet.
-   */
-  private Panel ctrlButtons;
+	/**
+	 * Holds the buttons and other controls, forms a strip across the bottom of
+	 * the applet.
+	 */
+	private Panel ctrlButtons;
 
-  /**
-   * The current status, which is displayed just above the controls.
-   */
-  private String status = "";
+	/**
+	 * The current status, which is displayed just above the controls.
+	 */
+	private String status = "";
 
+	public void init() {
+		setLayout(new BorderLayout());
 
-  public void init()
-  {
-    setLayout(new BorderLayout());
+		// setup the controls
+		ctrlButtons = new Panel();
+		ctrlStart = new Button("Start");
+		ctrlButtons.add(ctrlStart);
+		ctrlButtons.add(new Label("# Cities:"));
+		ctrlButtons.add(ctrlCities = new TextField(5));
+		ctrlButtons.add(new Label("Population Size:"));
+		ctrlButtons.add(ctrlPopulationSize = new TextField(5));
+		this.add(ctrlButtons, BorderLayout.SOUTH);
 
-    // setup the controls
-    ctrlButtons = new Panel();
-    ctrlStart = new Button("Start");
-    ctrlButtons.add(ctrlStart);
-    ctrlButtons.add(new Label("# Cities:"));
-    ctrlButtons.add(ctrlCities = new TextField(5));
-    ctrlButtons.add(new Label("Population Size:"));
-    ctrlButtons.add(ctrlPopulationSize = new TextField(5));
-    this.add(ctrlButtons, BorderLayout.SOUTH);
+		// set the default values
+		ctrlPopulationSize.setText("1000");
+		ctrlCities.setText("50");
 
-    // set the default values
-    ctrlPopulationSize.setText("1000");
-    ctrlCities.setText("50");
+		// add an action listener for the button
+		ctrlStart.addActionListener(new ActionListener() {
 
-    // add an action listener for the button
-    ctrlStart.addActionListener(new ActionListener()
-    {
+			public void actionPerformed(ActionEvent arg0) {
+				startThread();
+			}
+		});
 
-      public void actionPerformed(ActionEvent arg0)
-      {
-        startThread();
-      }
-    });
-
-    started = false;
-    update();
-  }
-
-  /**
-   * Start the background thread.
-   */
-  public void startThread() {
-
-	  try
-	  {
-		  cityCount = Integer.parseInt(ctrlCities.getText());
-	  }
-	  catch(NumberFormatException e)
-	  {
-		  cityCount = 50;
-	  }
-
-	  try
-	  {
-		  populationSize = Integer.parseInt(ctrlPopulationSize.getText());
-	  }
-	  catch(NumberFormatException e)
-	  {
-		  populationSize = 1000;
-	  }
-
-	  FontMetrics fm = getGraphics().getFontMetrics();
-	  int bottom = ctrlButtons.getBounds().y - fm.getHeight()-2;
-
-// create a random list of cities
-
-	    cities = new City[cityCount];
-	    for ( int i=0;i<cityCount;i++ ) {
-	      cities[i] = new City(
-	        (int)(Math.random()*(getBounds().width-10)),
-	        (int)(Math.random()*(bottom-10)));
-	    }
-
-// create the initial population of chromosomes
-	int numbits = (int)Math.ceil(Math.log((double)cityCount)/Math.log(2));
-	int[] cityRepresentations = getbitstrings(cityCount, numbits);
-	chromosomes = new Chromosome[populationSize];
-	for (int i=0; i<populationSize; ++i){
-		chromosomes[i] = new Chromosome(cityRepresentations,numbits);
+		started = false;
+		update();
 	}
 
-// start up the background thread
+	/**
+	 * Start the background thread.
+	 */
+	public void startThread() {
 
-    started = true;
+		try {
+			cityCount = Integer.parseInt(ctrlCities.getText());
+		} catch (NumberFormatException e) {
+			cityCount = 50;
+		}
 
-    generation = 0;
+		try {
+			populationSize = Integer.parseInt(ctrlPopulationSize.getText());
+		} catch (NumberFormatException e) {
+			populationSize = 1000;
+		}
 
-    if ( worker != null )
-        worker = null;
-    worker = new Thread(this);
-    worker.setPriority(Thread.MIN_PRIORITY);
-    worker.start();
-  }
+		FontMetrics fm = getGraphics().getFontMetrics();
+		int bottom = ctrlButtons.getBounds().y - fm.getHeight() - 2;
 
-  /**
-   * Update the display
-   */
+		// create a random list of cities
 
-  public void update()
-  {
-    Image img = createImage(getBounds().width, getBounds().height);
-    Graphics g = img.getGraphics();
-    FontMetrics fm = g.getFontMetrics();
+		cities = new City[cityCount];
+		for (int i = 0; i < cityCount; i++) {
+			cities[i] = new City(
+					(int) (Math.random() * (getBounds().width - 10)),
+					(int) (Math.random() * (bottom - 10)));
+		}
 
-    int width = getBounds().width;
-    int bottom = ctrlButtons.getBounds().y - fm.getHeight()-2;
+		// create the initial population of chromosomes
+		int numbits = (int) Math.ceil(Math.log((double) cityCount)
+				/ Math.log(2));
+		int[] cityRepresentations = getbitstrings(cityCount, numbits);
+		chromosomes = new Chromosome[populationSize];
+		for (int i = 0; i < populationSize; ++i) {
+			chromosomes[i] = new Chromosome(cityRepresentations, numbits);
+		}
 
-    g.setColor(Color.black);
-    g.fillRect(0, 0, width, bottom);
+		// start up the background thread
 
-    if( started && (cities != null) )
-    {
-    	    g.setColor(Color.green);
-    	    for ( int i=0;i<cityCount;i++ ) {
-    	      int xpos = cities[i].getx();
-    	      int ypos = cities[i].gety();
-    	      g.fillOval(xpos-5,ypos-5,10,10);
-    	    }
+		started = true;
 
-    	    g.setColor(Color.white);
-    	    for ( int i=0;i<cityCount;i++ ) {
-    	      int icity = chromosomes[0].getCity(i);
-    	      if ( i!=0 ) {
-    	        int last = chromosomes[0].getCity(i-1);
-    	        g.drawLine(
-    	                  cities[icity].getx(),
-    	                  cities[icity].gety(),
-    	                  cities[last].getx(),
-    	                  cities[last].gety());
-    	      }
-    	    }
+		generation = 0;
 
-    }
+		if (worker != null)
+			worker = null;
+		worker = new Thread(this);
+		worker.setPriority(Thread.MIN_PRIORITY);
+		worker.start();
+	}
 
+	/**
+	 * Update the display
+	 */
 
-    g.drawString(status, 0, bottom);
+	public void update() {
+		Image img = createImage(getBounds().width, getBounds().height);
+		Graphics g = img.getGraphics();
+		FontMetrics fm = g.getFontMetrics();
 
-    getGraphics().drawImage(img, 0, 0, this);
-  }
+		int width = getBounds().width;
+		int bottom = ctrlButtons.getBounds().y - fm.getHeight() - 2;
 
-  /**
-   * Update the status.
-   *
-   * @param status The status.
-   */
-  public void setStatus(String status)
-  {
-    this.status = status;
-  }
+		g.setColor(Color.black);
+		g.fillRect(0, 0, width, bottom);
 
-  /**
-   * The main loop for the background thread.
-   */
+		if (started && (cities != null)) {
+			g.setColor(Color.green);
+			for (int i = 0; i < cityCount; i++) {
+				int xpos = cities[i].getx();
+				int ypos = cities[i].gety();
+				g.fillOval(xpos - 5, ypos - 5, 10, 10);
+			}
 
-  public void run() {
+			g.setColor(Color.white);
+			for (int i = 0; i < cityCount; i++) {
+				int icity = chromosomes[0].getCity(i);
+				if (i != 0) {
+					int last = chromosomes[0].getCity(i - 1);
+					g.drawLine(cities[icity].getx(), cities[icity].gety(),
+							cities[last].getx(), cities[last].gety());
+				}
+			}
 
-    double thisCost = 500.0;
+		}
 
-    update();
+		g.drawString(status, 0, bottom);
 
-    while(generation<1000) {
+		getGraphics().drawImage(img, 0, 0, this);
+	}
 
-      generation++;
+	/**
+	 * Update the status.
+	 * 
+	 * @param status
+	 *            The status.
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-      // TO DO 
+	/**
+	 * The main loop for the background thread.
+	 */
 
-      Chromosome.sortChromosomes(chromosomes,matingPopulationSize);
+	public void run() {
 
-      double cost = chromosomes[0].getCost();
-      thisCost = cost;
+		double thisCost = 500.0;
 
+		update();
 
-      NumberFormat nf = NumberFormat.getInstance();
-      nf.setMinimumFractionDigits(2);
-      nf.setMinimumFractionDigits(2);
+		while (generation < 1000) {
 
- setStatus("Generation "+generation+" Cost "+(int)thisCost);
+			generation++;
 
-      update();
+			// TO DO
 
-    }
-    setStatus("Solution found after "+generation+" generations.");
-  }
+			Chromosome.sortChromosomes(chromosomes, matingPopulationSize);
 
-  public void paint(Graphics g)
-  {
-	  update();
-  }
+			double cost = chromosomes[0].getCost();
+			thisCost = cost;
+
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setMinimumFractionDigits(2);
+			nf.setMinimumFractionDigits(2);
+
+			setStatus("Generation " + generation + " Cost " + (int) thisCost);
+
+			update();
+
+		}
+		setStatus("Solution found after " + generation + " generations.");
+	}
+
+	public void paint(Graphics g) {
+		update();
+	}
 
 	/*
+	 * 
+	 * Method and class for generating bit strings
+	 * 
+	 * @returns Bit strings of length lenString in amount Numstrings
+	 */
+	public class BitString {
+		int i = 0;
+		Queue<String> bitstrings;
 
-	Method and class for generating bit strings
+		public BitString(int len) {
+			bitstrings = new LinkedList<String>();
+			//initliased list
 		
-	@returns Bit strings of length lenString in amount Numstrings	
-	*/
-	public class BitString{
-		int i=0;
-		double upperBound;
-		public BitString(int len){
-			upperBound = Math.pow(2,len)-1;		
 		}
-		public int next() throws Exception{
-			if (i<upperBound){
-				return i++;
+		public void initialize(String length, String[] bistrings){
+			if (length){
+				return [''];
 			}
-			else{
-				throw new Exception("Cannot generate binary string");
-			}
+		}
+		public int next() throws Exception {
+			return bitstrings.poll();
 		}
 	}
-	public int[] getbitstrings(int Numstrings,int lenString){
+
+	public int[] getbitstrings(int Numstrings, int lenString) {
 		int[] temp = new int[Numstrings];
 		BitString stringCreator = new BitString(lenString);
-		for (int i=0; i<Numstrings; ++i){
-			try{
+		for (int i = 0; i < Numstrings; ++i) {
+			try {
 				temp[i] = stringCreator.next();
-			}catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
