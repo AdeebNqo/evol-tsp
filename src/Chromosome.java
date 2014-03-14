@@ -124,8 +124,8 @@ class Chromosome {
 	/*
 	 * 
 	 * Method for generating nums in a range
-	 */
+	 *
 	public int getRandomIndex(int min, int max) {
 		return min + (int) (Math.random() * ((max - min) + 1));
-	}
+	}*/
 }
