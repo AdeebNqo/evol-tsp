@@ -141,7 +141,7 @@ public class TravelingSalesman extends Applet implements Runnable {
 		// create the initial population of chromosomes
 		int numbits = (int) Math.ceil(Math.log((double) cityCount)
 				/ Math.log(2));
-		int[] cityRepresentations = getbitstrings(cityCount, numbits);
+
 		chromosomes = new Chromosome[populationSize];
 		for (int i = 0; i < populationSize; ++i) {
 			chromosomes[i] = new Chromosome(cityRepresentations, numbits);
@@ -245,43 +245,5 @@ public class TravelingSalesman extends Applet implements Runnable {
 
 	public void paint(Graphics g) {
 		update();
-	}
-
-	/*
-	 * 
-	 * Method and class for generating bit strings
-	 * 
-	 * @returns Bit strings of length lenString in amount Numstrings
-	 */
-	public class BitString {
-		int i = 0;
-		Queue<String> bitstrings;
-
-		public BitString(int len) {
-			bitstrings = new LinkedList<String>();
-			//initliased list
-		
-		}
-		public void initialize(String length, String[] bistrings){
-			if (length){
-				return [''];
-			}
-		}
-		public int next() throws Exception {
-			return bitstrings.poll();
-		}
-	}
-
-	public int[] getbitstrings(int Numstrings, int lenString) {
-		int[] temp = new int[Numstrings];
-		BitString stringCreator = new BitString(lenString);
-		for (int i = 0; i < Numstrings; ++i) {
-			try {
-				temp[i] = stringCreator.next();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return temp;
 	}
 }
