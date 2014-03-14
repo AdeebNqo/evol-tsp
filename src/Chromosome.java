@@ -28,6 +28,10 @@ class Chromosome {
 		}
 		calculateCost(tmp);
 	}
+	public Chromosome(Chromosome someChromo){
+		this.cost = someChromo.cost;
+		this.cityList = someChromo.cityList;
+	}
 
 	/**
 	 * Calculate the cost of the specified list of cities.
