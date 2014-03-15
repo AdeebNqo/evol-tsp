@@ -1,3 +1,0 @@
-enum SurvivorSelection{
-	Tornament, Elitism
-};
