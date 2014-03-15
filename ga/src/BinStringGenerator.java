@@ -17,6 +17,11 @@ class BinStringGenerator{
 		}
 	}
 	private String pad(String encoding){
-		return null;
+		int len = encoding.length();
+		int numzeros = length-len;
+		for (int i=0; i<numzeros; ++i){
+			"0"+encoding
+		}
+		return encoding;
 	}
 }
