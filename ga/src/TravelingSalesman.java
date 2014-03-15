@@ -79,6 +79,10 @@ public class TravelingSalesman extends Applet implements Runnable {
 	 * The current status, which is displayed just above the controls.
 	 */
 	private String status = "";
+	/*
+	Mapping cities to bit string encodings
+	*/
+	CityMapper citymapper;
 
 	public void init() {
 		setLayout(new BorderLayout());
@@ -137,11 +141,17 @@ public class TravelingSalesman extends Applet implements Runnable {
 					(int) (Math.random() * (getBounds().width - 10)),
 					(int) (Math.random() * (bottom - 10)));
 		}
-
-		//create the initial population of chromosomes
+		
+		//assigning encoding to the cities
 		int numbits = (int) Math.ceil(Math.log((double) cityCount)
 				/ Math.log(2));
-
+		BinStringGenerator bitstringgen = new BinStringGenerator(numbits);
+		String[] encodings = new String[cityCount];
+		for (int i=0; i < cityCount; ++i){
+			encodings[i] = bitstringgen.next();
+		}
+		citymapper = new CityMapper(cities, encodings);
+		//create the initial population of chromosomes
 		chromosomes = new Chromosome[populationSize];
 		
 
