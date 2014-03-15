@@ -138,14 +138,12 @@ public class TravelingSalesman extends Applet implements Runnable {
 					(int) (Math.random() * (bottom - 10)));
 		}
 
-		// create the initial population of chromosomes
-		//int numbits = (int) Math.ceil(Math.log((double) cityCount)
-		//		/ Math.log(2));
+		//create the initial population of chromosomes
+		int numbits = (int) Math.ceil(Math.log((double) cityCount)
+				/ Math.log(2));
 
 		chromosomes = new Chromosome[populationSize];
-		for (int i = 0; i < populationSize; ++i) {
-			chromosomes[i] = new Chromosome(cities);
-		}
+		
 
 		// start up the background thread
 
