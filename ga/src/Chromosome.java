@@ -8,9 +8,16 @@ class Chromosome{
 	 * The cost of following the cityList order of this chromosome.
 	 */
 	protected double cost;
+	
+	/*
+	
+	CityMapper
 
-	Chromosome(City[] cities) {
-		
+	*/
+	CityMapper citymapper;
+
+	Chromosome(City[] cities, CityMapper citymapper) {
+		this.citymapper = citymapper;	
 	}
 	public Chromosome(Chromosome someChromo){
 		this.cost = someChromo.cost;

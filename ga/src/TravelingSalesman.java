@@ -153,7 +153,9 @@ public class TravelingSalesman extends Applet implements Runnable {
 		citymapper = new CityMapper(cities, encodings);
 		//create the initial population of chromosomes
 		chromosomes = new Chromosome[populationSize];
-		
+		for (int i=0; i<populationSize; ++i){
+			chromosomes[i] = new Chromosome();
+		}
 
 		// start up the background thread
 
