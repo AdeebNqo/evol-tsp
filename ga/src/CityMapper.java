@@ -1,10 +1,11 @@
+import java.util.HashMap;
 class CityMapper{
-	HashMap<String,int> reference;
-	City[] cities = new City[];	
+	HashMap<String,Integer> reference;
+	City[] cities;	
 	public CityMapper(City[] cities, String[] encoding){
 		this.cities = cities;
 		//caching the key-city mappings
-		reference = new HashMap<String, int>();
+		reference = new HashMap<String, Integer>();
 		for (int i=0; i<cities.length; ++i){		
 			reference.put(encoding[i],i);
 		}

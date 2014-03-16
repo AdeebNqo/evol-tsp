@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 class Chromosome{
 	/**
 	 * The list of cities, which are the genes of this chromosome.
@@ -15,6 +16,11 @@ class Chromosome{
 
 	*/
 	CityMapper citymapper;
+
+	/*
+	Genotype
+	*/
+	BigInteger genotype;
 
 	Chromosome(City[] cities, CityMapper citymapper) {
 		this.citymapper = citymapper;	

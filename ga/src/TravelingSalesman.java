@@ -148,13 +148,18 @@ public class TravelingSalesman extends Applet implements Runnable {
 		BinStringGenerator bitstringgen = new BinStringGenerator(numbits);
 		String[] encodings = new String[cityCount];
 		for (int i=0; i < cityCount; ++i){
-			encodings[i] = bitstringgen.next();
+			try{
+				encodings[i] = bitstringgen.next();
+			}catch(Exception e){
+				e.printStackTrace();
+				System.exit(0);
+			}
 		}
 		citymapper = new CityMapper(cities, encodings);
 		//create the initial population of chromosomes
 		chromosomes = new Chromosome[populationSize];
 		for (int i=0; i<populationSize; ++i){
-			chromosomes[i] = new Chromosome();
+			chromosomes[i] = new Chromosome(cities, citymapper);
 		}
 
 		// start up the background thread
