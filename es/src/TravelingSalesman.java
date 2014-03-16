@@ -225,7 +225,9 @@ public class TravelingSalesman extends Applet implements Runnable {
 			generation++;
 
 			// start
-
+			for (Chromosome chromo: chromosomes){
+				chromo.calculateCost(cities);
+			}
 			PopulationPool pool = new PopulationPool(populationSize);
 			for (int i=0; i<populationSize; ++i){
 				//cloning chromosome, mutating clone, adding it to pool
