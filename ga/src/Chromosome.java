@@ -11,7 +11,16 @@ class Chromosome{
 	protected double cost;
 
 	Chromosome(City[] cities) {
-		
+		for (int i=0; i<cities.length; ++i){
+			cityList[i] = i;
+		}		
+		//Knuth shuffle
+		for (int i=cities.length-1; i>=0; --i){
+			int j = getRandomIndex(0, i);
+			int tmp  = cityList[j];
+			cityList[j] = cityList[i];
+			cityList[i] = tmp;
+		}
 	}
 
 	/**
