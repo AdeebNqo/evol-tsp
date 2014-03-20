@@ -38,20 +38,24 @@ class PopulationPool{
 		return null;
 	}
 	public Chromosome[] getParents(ParentSelection method, int numParents, double prob){
+		Chromosome[] tmp = new Chromosome[2];		
 		switch(method){
-			case RouletteWheel:
+			case RouletteWheel: 
 				double S = 0;
 				for (Chromosome individual:this.pop){
 					S+=individual.getCost();
 				}
-				double r = getRandomIndex(0,S);
-				double s = 0;
-				for (int i=0; s<=r; ++i){
-					tmp[i] = (Chromosome)pop.get(i);
+				for (int j=0; j<2; ++j){
+					double r = getRandomIndex(0,S);//n
+					double s = 0;
+					int i=0;
+					for (; s<=r; ++i){
+						s+=((Chromosome)pop.get(i)).getCost();
+					}
+					tmp[j] =  (Chromosome)pop.get(i);
 				}
 				return tmp;
 			case Tournament:
-				Chromosome[] tmp = new Chromosome[2];
 				for (int i=0; i<2; ++i){
 					double R = Math.rand();
 					//randomly picking two individuals from the populationSize
