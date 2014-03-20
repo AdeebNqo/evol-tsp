@@ -9,26 +9,8 @@ class Chromosome{
 	 * The cost of following the cityList order of this chromosome.
 	 */
 	protected double cost;
-	
-	/*
-	
-	CityMapper
 
-	*/
-	CityMapper citymapper;
-
-	/*
-	Genotype
-	*/
-	BigInteger genotype;
-
-	Chromosome(City[] cities, CityMapper citymapper) {
-		this.citymapper = citymapper;
-		
-		int[] tmp = new int[cities.length];
-		for (int i=0; i<cities.length; ++i){
-			tmp[i] = i;
-		}
+	Chromosome(City[] cities) {
 		
 	}
 
