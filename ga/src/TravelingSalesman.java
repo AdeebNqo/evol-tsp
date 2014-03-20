@@ -79,10 +79,6 @@ public class TravelingSalesman extends Applet implements Runnable {
 	 * The current status, which is displayed just above the controls.
 	 */
 	private String status = "";
-	/*
-	Mapping cities to bit string encodings
-	*/
-	CityMapper citymapper;
 
 	public void init() {
 		setLayout(new BorderLayout());
