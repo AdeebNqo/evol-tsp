@@ -17,12 +17,23 @@ class PopulationPool{
 			add(item);
 		}
 	}
+	public double getRandomIndex(double min, double max) {
+		return min + (double) (Math.random() * ((max - min) + 1));
+	}
 	public Chromosome[] getSurvivors(SurvivorSelection mode){
 		Chromosome[] tmp = new Chromosome[populationSize];
 		switch(mode){
 			case RouletteWheel:
-				System.out.println("RouletteWheel chosen");
-				break;
+				double S = 0;
+				for (Chromosome individual:this.pop){
+					S+=individual.getCost();
+				}
+				double r = getRandomIndex(0,S);
+				double s = 0;
+				for (int i=0; s<=r; ++i){
+					tmp[i] = (Chromosome)pop.get(i);
+				}
+				return tmp;
 		}
 		return null;
 	}

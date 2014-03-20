@@ -10,7 +10,14 @@ class Chromosome{
 	 */
 	protected double cost;
 
+	/*
+		
+	Cache of the cities
+
+	*/
+	City[] cities;
 	Chromosome(City[] cities) {
+		this.cities = cities;
 		for (int i=0; i<cities.length; ++i){
 			cityList[i] = i;
 		}		
@@ -22,7 +29,18 @@ class Chromosome{
 			cityList[i] = tmp;
 		}
 	}
-
+	/**
+	 * Calculate the cost of the default list of cities.
+	 * 
+	 */
+	void calculateCost() {
+		cost = 0;
+		for (int i = 0; i < cityList.length - 1; i++) {
+			double dist = cities[cityList[i]]
+					.proximity(cities[cityList[i + 1]]);
+			cost += dist;
+		}
+	}
 	/**
 	 * Calculate the cost of the specified list of cities.
 	 * 
