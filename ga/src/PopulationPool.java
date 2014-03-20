@@ -34,6 +34,14 @@ class PopulationPool{
 					tmp[i] = (Chromosome)pop.get(i);
 				}
 				return tmp;
+			case Elitism:
+				Collections.sort(pop,new ChromosomeCompare());
+				int popSize = pop.size();
+				int j = 0;
+				for (int i=popSize-1; j<=99; --i,++j){
+					tmp[j] = (Chromosome) pop.get(i);
+				}
+				return tmp;
 		}
 		return null;
 	}
