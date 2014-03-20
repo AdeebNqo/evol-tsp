@@ -1,3 +1,3 @@
 enum ParentSelection{
-
+	RouletteWheel, Tournament
 }

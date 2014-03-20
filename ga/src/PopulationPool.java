@@ -17,6 +17,9 @@ class PopulationPool{
 			add(item);
 		}
 	}
+	public int getRandomIndex(int min, int max) {
+		return min + (int) (Math.random() * ((max - min) + 1));
+	}
 	public double getRandomIndex(double min, double max) {
 		return min + (double) (Math.random() * ((max - min) + 1));
 	}
@@ -34,11 +37,10 @@ class PopulationPool{
 		}
 		return null;
 	}
-	public Chromosome[] getParents(ParentSelection method, int numParents){
+	public Chromosome[] getParents(ParentSelection method, int numParents, double prob){
 		switch(method){
 			case RouletteWheel:
-				System.out.println("hey");
-				/*double S = 0;
+				double S = 0;
 				for (Chromosome individual:this.pop){
 					S+=individual.getCost();
 				}
@@ -47,8 +49,22 @@ class PopulationPool{
 				for (int i=0; s<=r; ++i){
 					tmp[i] = (Chromosome)pop.get(i);
 				}
-				return tmp;/*
-				break;
+				return tmp;
+			case Tournament:
+				Chromosome[] tmp = new Chromosome[2];
+				for (int i=0; i<2; ++i){
+					double R = Math.rand();
+					//randomly picking two individuals from the populationSize
+					int one = getRandomIndex(0,popSize-1);
+					int two = getRandomIndex(0,popSize-1);
+					if (R < prob){
+						tmp[i] = (Chromosome) pop.get(one);
+					}
+					else{
+						tmp[i] = (Chromosome) pop.get(two);
+					}
+				}
+				return tmp;
 		}
 	}
 	class ChromosomeCompare implements Comparator<Chromosome>{
