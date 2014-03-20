@@ -20,15 +20,8 @@ class PopulationPool{
 	public Chromosome[] getSurvivors(SurvivorSelection mode){
 		Chromosome[] tmp = new Chromosome[populationSize];
 		switch(mode){
-			case Elitism:
-				Collections.sort(pop, new ChromosomeCompare());
-				int count =0;
-				for (int i=pop.size()-1; count<populationSize; --i, ++count){
-					tmp[count] = pop.get(i);
-				}
-				return tmp;
-			case Tornament:
-				System.out.println("You've chosen tornament");
+			case RouletteWheel:
+				System.out.println("RouletteWheel chosen");
 				break;
 		}
 		return null;

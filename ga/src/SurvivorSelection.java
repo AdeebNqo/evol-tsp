@@ -1,3 +1,3 @@
 enum SurvivorSelection{
-	Tornament, Elitism
+	RouletteWheel
 };
