@@ -23,17 +23,6 @@ class PopulationPool{
 	public Chromosome[] getSurvivors(SurvivorSelection mode){
 		Chromosome[] tmp = new Chromosome[populationSize];
 		switch(mode){
-			case RouletteWheel:
-				double S = 0;
-				for (Chromosome individual:this.pop){
-					S+=individual.getCost();
-				}
-				double r = getRandomIndex(0,S);
-				double s = 0;
-				for (int i=0; s<=r; ++i){
-					tmp[i] = (Chromosome)pop.get(i);
-				}
-				return tmp;
 			case Elitism:
 				Collections.sort(pop,new ChromosomeCompare());
 				int popSize = pop.size();
@@ -44,6 +33,23 @@ class PopulationPool{
 				return tmp;
 		}
 		return null;
+	}
+	public Chromosome[] getParents(ParentSelection method, int numParents){
+		switch(method){
+			case RouletteWheel:
+				System.out.println("hey");
+				/*double S = 0;
+				for (Chromosome individual:this.pop){
+					S+=individual.getCost();
+				}
+				double r = getRandomIndex(0,S);
+				double s = 0;
+				for (int i=0; s<=r; ++i){
+					tmp[i] = (Chromosome)pop.get(i);
+				}
+				return tmp;/*
+				break;
+		}
 	}
 	class ChromosomeCompare implements Comparator<Chromosome>{
 			/*
