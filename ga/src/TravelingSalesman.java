@@ -138,7 +138,9 @@ public class TravelingSalesman extends Applet implements Runnable {
 					(int) (Math.random() * (bottom - 10)));
 		}
 		
-		//TODO: create chromosomes
+		for (int i=0; i<populationSize; ++i){
+			chromosomes[i] = new Chromosome(cities);
+		}
 
 		// start up the background thread
 
@@ -217,7 +219,15 @@ public class TravelingSalesman extends Applet implements Runnable {
 
 			generation++;
 
-			// TODO
+			//evaluating fitness for chromosomes
+			for (Chromosome individual:chromosomes){
+				individual.calculateCost();
+			}
+			//parent selection
+
+			//crossover and mutation
+
+			//survivor selection			
 
 
 			Chromosome.sortChromosomes(chromosomes, matingPopulationSize);

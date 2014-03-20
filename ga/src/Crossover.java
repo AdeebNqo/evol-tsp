@@ -1,0 +1,3 @@
+enum Crossover{
+	OnePoint, TwoPoint
+}
