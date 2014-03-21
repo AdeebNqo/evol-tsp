@@ -130,8 +130,11 @@ class Chromosome{
 				cityList[indexone] = cityList[indextwo];
 				cityList[indextwo] = temp;
 
-				if (getCost() > cacheCost){
-					//
+				if (getCost() < cacheCost){
+					//rearrange to original
+					int temp = cityList[indexone];
+					cityList[indexone] = cityList[indextwo];
+					cityList[indextwo] = temp;
 				}
 			}
 		}
