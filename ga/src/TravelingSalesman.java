@@ -138,6 +138,7 @@ public class TravelingSalesman extends Applet implements Runnable {
 					(int) (Math.random() * (bottom - 10)));
 		}
 		
+		chromosomes = new Chromosome[populationSize];
 		for (int i=0; i<populationSize; ++i){
 			chromosomes[i] = new Chromosome(cities);
 		}
@@ -233,7 +234,7 @@ public class TravelingSalesman extends Applet implements Runnable {
 				offspring.mutate(Mutation.NormalRandom);
 			}
 			//survivor selection			
-			
+			chromosomes = pool.getSurvivors(SurvivorSelection.Elitism);
 
 			Chromosome.sortChromosomes(chromosomes, matingPopulationSize);
 

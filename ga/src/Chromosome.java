@@ -18,6 +18,7 @@ class Chromosome{
 	City[] cities;
 	Chromosome(City[] cities) {
 		this.cities = cities;
+		cityList = new int[cities.length];
 		for (int i=0; i<cities.length; ++i){
 			cityList[i] = i;
 		}		

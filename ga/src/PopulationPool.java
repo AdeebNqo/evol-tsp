@@ -24,7 +24,7 @@ class PopulationPool{
 				Collections.sort(pop,new ChromosomeCompare());
 				int popSize = pop.size();
 				int j = 0;
-				for (int i=popSize-1; j<=99; --i,++j){
+				for (int i=popSize-1; j<=populationSize; --i,++j){
 					tmp[j] = (Chromosome) pop.get(i);
 				}
 				return tmp;
