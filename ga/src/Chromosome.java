@@ -111,29 +111,31 @@ class Chromosome{
 	 * mate: mutation method
 	 */
 
-	int mate() {
-		transpose();
-		return 0;
-	}
-	/*
-	
-	mutation:
-	Transposition
-	
-	*/
-	private void transpose(){
-		int indexone = getRandomIndex(0, cityList.length-1);
-		int indextwo = getRandomIndex(0, cityList.length-1);
-		int temp = cityList[indexone];
-		cityList[indexone] = cityList[indextwo];
-		cityList[indextwo] = temp;
-	}
-	/*
-	mutation:
-	Inversion
-	*/
-	private void inversion(){
+	int mutate(Mutation mode) {
+		switch(mode){
+			case NormalRandom:{
+				int indexone = getRandomIndex(0, cityList.length-1);
+				int indextwo = getRandomIndex(0, cityList.length-1);
+				int temp = cityList[indexone];
+				cityList[indexone] = cityList[indextwo];
+				cityList[indextwo] = temp;
+				break;
+			}
+			case RandomOnlyImproving:{
+				double cacheCost = this.cost;
+		
+				int indexone = getRandomIndex(0, cityList.length-1);
+				int indextwo = getRandomIndex(0, cityList.length-1);
+				int temp = cityList[indexone];
+				cityList[indexone] = cityList[indextwo];
+				cityList[indextwo] = temp;
 
+				if (getCost() > cacheCost){
+					//
+				}
+			}
+		}
+		return 0;
 	}
 	/**
 	 * Sort the chromosomes by their cost.
