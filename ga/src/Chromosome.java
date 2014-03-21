@@ -32,6 +32,12 @@ class Chromosome{
 	Chromosome(int[] cityList) {
 		this.cityList = cityList;
 	}
+	Chromosome(Chromosome original) {
+		this.cityList = original.cityList;
+		this.cities = original.cities;
+		calculateCost();
+	}
+	
 	/**
 	 * Calculate the cost of the default list of cities.
 	 * 
