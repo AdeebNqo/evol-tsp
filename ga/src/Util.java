@@ -13,10 +13,15 @@ class Util{
 				for (; a<=crossoverPoint; ++a){
 					newChromosome[a] = one.cityList[a];
 				}
-				for (int j=0; j<=end; ++j){
-					if (!Arrays.asList(newChromosome).contains(two.cityList[j])){
-						newChromosome[a] = two.cityList[j];
-						++a;
+				if (a<one.cityList.length){
+					for (int j=0; j<=end; ++j){
+						if (! Arrays.asList(newChromosome).contains(two.cityList[j])){
+							newChromosome[a] = two.cityList[j];
+							++a;
+							if (!(a<one.cityList.length)){
+								break;
+							}
+						}
 					}
 				}
 				return new Chromosome(newChromosome);
