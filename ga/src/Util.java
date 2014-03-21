@@ -3,7 +3,12 @@ class Util{
 		switch(mode){
 			case OnePoint:
 				int crossoverPoint = getRandomIndex(0,one.cityList.length);
-								
+				int end = one.cityList.length-1;
+				for (int i=crossoverPoint; i<=end; ++i){
+					int tmp = one.cityList[i];
+					one.cityList[i] = two.cityList[i];
+					two.cityList[i] = tmp;
+				}
 				break;
 		}
 	}
