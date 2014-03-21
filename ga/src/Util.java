@@ -1,11 +1,14 @@
 import java.util.Arrays;
 class Util{
-	public static void crossover(Chromosome one, Chromosome two, Crossover mode){
+	public static Chromosome crossover(Chromosome one, Chromosome two, Crossover mode){
 		switch(mode){
-			case OnePoint:
+			case OnePoint:{
 				int crossoverPoint = getRandomIndex(0,one.cityList.length-1);
 				int end = one.cityList.length-1;
 				int[] newChromosome = new int[one.cityList.length];
+				for (int index=0; index<one.cityList.length; ++index){
+					newChromosome[index] = -1;
+				}
 				int a=0;				
 				for (; a<=crossoverPoint; ++a){
 					newChromosome[a] = one.cityList[a];
@@ -16,8 +19,9 @@ class Util{
 						++a;
 					}
 				}
-				break;
-			case TwoPoint:
+				return new Chromosome(newChromosome);
+				}
+			case TwoPoint:{
 				int firstcrossoverPoint = getRandomIndex(0,one.cityList.length-1);
 				int secondcrossoverPoint = getRandomIndex(0,one.cityList.length-1);
 				while(secondcrossoverPoint==firstcrossoverPoint){
@@ -25,23 +29,31 @@ class Util{
 				}
 				int min = firstcrossoverPoint > secondcrossoverPoint ? secondcrossoverPoint : firstcrossoverPoint;
 				int max = firstcrossoverPoint < secondcrossoverPoint ? secondcrossoverPoint : firstcrossoverPoint;
+				int[] newChromosome = new int[one.cityList.length];
+				for (int index=0; index<one.cityList.length; ++index){
+					newChromosome[index] = -1;
+				}
 				for (int i=0; i<=min; ++i){
-					int tmp = one.cityList[i];
-					one.cityList[i] = two.cityList[i];
-					two.cityList[i] = tmp;
+					newChromosome[i] = one.cityList[i];
 				}
-				for (int i=min; i<=max; ++i){
-					int tmp = one.cityList[i];
-					one.cityList[i] = two.cityList[i];
-					two.cityList[i] = tmp;
+				for (int i=max; i<one.cityList.length; ++i){
+					newChromosome[i] = one.cityList[i];
 				}
-				for (int i=max; i<=one.cityList.length-1; ++i){
-					int tmp = one.cityList[i];
-					one.cityList[i] = two.cityList[i];
-					two.cityList[i] = tmp;
+				//fill in mid section with cities from chromosome two
+				int start = min+1;
+				for (int i=0; i<one.cityList.length; ++i){
+					if (!Arrays.asList(newChromosome).contains(two.cityList[i])){
+						newChromosome[start] = two.cityList[i];
+						++start;
+						if (start>=max){
+							break;
+						}
+					}
 				}
-				break;
+				return new Chromosome(newChromosome);
+				}
 		}
+		return null;
 	}
 	/* 
 	 * Method for generating nums in a range
