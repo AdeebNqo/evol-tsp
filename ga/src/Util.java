@@ -52,6 +52,9 @@ class Util{
 				}
 				return new Chromosome(newChromosome);
 				}
+			case None:{
+				return new Chromosome(one==null? two:one);
+				}
 		}
 		return null;
 	}
