@@ -132,9 +132,9 @@ class Chromosome{
 
 				if (getCost() < cacheCost){
 					//rearrange to original
-					int temp = cityList[indexone];
+					int temp2 = cityList[indexone];
 					cityList[indexone] = cityList[indextwo];
-					cityList[indextwo] = temp;
+					cityList[indextwo] = temp2;
 				}
 			}
 		}

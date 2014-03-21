@@ -17,12 +17,6 @@ class PopulationPool{
 			add(item);
 		}
 	}
-	public int getRandomIndex(int min, int max) {
-		return min + (int) (Math.random() * ((max - min) + 1));
-	}
-	public double getRandomIndex(double min, double max) {
-		return min + (double) (Math.random() * ((max - min) + 1));
-	}
 	public Chromosome[] getSurvivors(SurvivorSelection mode){
 		Chromosome[] tmp = new Chromosome[populationSize];
 		switch(mode){
@@ -46,7 +40,7 @@ class PopulationPool{
 					S+=individual.getCost();
 				}
 				for (int j=0; j<2; ++j){
-					double r = getRandomIndex(0,S);//n
+					double r = Util.getRandomIndex(0,S);//n
 					double s = 0;
 					int i=0;
 					for (; s<=r; ++i){
@@ -59,8 +53,8 @@ class PopulationPool{
 				for (int i=0; i<2; ++i){
 					double R = Math.random();
 					//randomly picking two individuals from the populationSize
-					int one = getRandomIndex(0,populationSize-1);
-					int two = getRandomIndex(0,populationSize-1);
+					int one = Util.getRandomIndex(0,populationSize-1);
+					int two = Util.getRandomIndex(0,populationSize-1);
 					if (R < prob){
 						tmp[i] = (Chromosome) pop.get(one);
 					}

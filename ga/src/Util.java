@@ -63,6 +63,9 @@ class Util{
 	 *
 	 */
 	public static int getRandomIndex(int min, int max) {
-		return min + (int) (Math.random() * ((max - min) + 1));
+	return min + (int) (Math.random() * ((max - min) + 1));
+	}
+	public static double getRandomIndex(double min, double max) {
+		return min + (double) (Math.random() * ((max - min) + 1));
 	}
 }
