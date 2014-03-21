@@ -1,2 +1,2 @@
 - [ ] In mutation mode NormalRandom, the number of cities to exchange should be random
-- [ ] Place both getRandomIndex()'s in Util
+- [X] Place both getRandomIndex()'s in Util
