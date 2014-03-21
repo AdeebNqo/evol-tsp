@@ -29,6 +29,9 @@ class Chromosome{
 			cityList[i] = tmp;
 		}
 	}
+	Chromosome(int[] cityList) {
+		this.cityList = cityList;
+	}
 	/**
 	 * Calculate the cost of the default list of cities.
 	 * 

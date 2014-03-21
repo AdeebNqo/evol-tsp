@@ -1,13 +1,20 @@
+import java.util.Arrays;
 class Util{
 	public static void crossover(Chromosome one, Chromosome two, Crossover mode){
 		switch(mode){
 			case OnePoint:
 				int crossoverPoint = getRandomIndex(0,one.cityList.length-1);
 				int end = one.cityList.length-1;
-				for (int i=crossoverPoint; i<=end; ++i){
-					int tmp = one.cityList[i];
-					one.cityList[i] = two.cityList[i];
-					two.cityList[i] = tmp;
+				int[] newChromosome = new int[one.cityList.length];
+				int a=0;				
+				for (; a<=crossoverPoint; ++a){
+					newChromosome[a] = one.cityList[a];
+				}
+				for (int j=0; j<=end; ++j){
+					if (!Arrays.asList(newChromosome).contains(two.cityList[j])){
+						newChromosome[a] = two.cityList[j];
+						++a;
+					}
 				}
 				break;
 			case TwoPoint:
