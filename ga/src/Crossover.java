@@ -1,3 +1,3 @@
 enum Crossover{
-	OnePoint, TwoPoint, None
+	OnePoint, TwoPoint, None, Mix
 }
