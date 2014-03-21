@@ -46,12 +46,14 @@ class Util{
 				}
 				//fill in mid section with cities from chromosome two
 				int start = min+1;
-				for (int i=0; i<one.cityList.length; ++i){
-					if (!Arrays.asList(newChromosome).contains(two.cityList[i])){
-						newChromosome[start] = two.cityList[i];
-						++start;
-						if (start>=max){
-							break;
+				if (start<max){
+					for (int i=0; i<one.cityList.length; ++i){
+						if (!Arrays.asList(newChromosome).contains(two.cityList[i])){
+							newChromosome[start] = two.cityList[i];
+							++start;
+							if (start>=max){
+								break;
+							}
 						}
 					}
 				}
