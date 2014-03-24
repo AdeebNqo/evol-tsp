@@ -33,7 +33,6 @@ class Chromosome{
 	}
 	Chromosome(int[] cityList) {
 		this.cityList = cityList;
-		calculateCost();
 	}
 	Chromosome(Chromosome original) {
 		this.cityList = original.cityList;
@@ -166,5 +165,16 @@ class Chromosome{
 				}
 			}
 		}
+	}
+	/*
+
+	Method for printing out a chromosome
+	
+	*/
+	public void display(){
+		for (int cityid: cityList){
+			System.out.println(cityid+"->");
+		}
+		System.out.println();
 	}
 }
