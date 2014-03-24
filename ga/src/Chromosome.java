@@ -112,15 +112,16 @@ class Chromosome{
 	 * 
 	 * mate: mutation method
 	 */
-
+	double mutationRate = 0.01;
 	int mutate(Mutation mode) {
 		switch(mode){
 			case NormalRandom:{
-				int indexone = Util.getRandomIndex(0, cityList.length-1);
-				int indextwo = Util.getRandomIndex(0, cityList.length-1);
-				int temp = cityList[indexone];
-				cityList[indexone] = cityList[indextwo];
-				cityList[indextwo] = temp;
+				for (int i=0; i<cityList.length; ++i){
+					int indexone = Util.getRandomIndex(0, cityList.length-1);
+					int temp = cityList[indexone];
+					cityList[indexone] = cityList[i];
+					cityList[i] = temp;
+				}
 				break;
 			}
 			case RandomOnlyImproving:{
