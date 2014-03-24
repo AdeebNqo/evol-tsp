@@ -240,7 +240,7 @@ public class TravelingSalesman extends Applet implements Runnable {
 			//survivor selection			
 			chromosomes = pool.getSurvivors(SurvivorSelection.Elitism);
 			
-			Chromosome.sortChromosomes(chromosomes, matingPopulationSize);
+			Chromosome.sortChromosomes(chromosomes, populationSize);//matingPopulationSize);
 
 			double cost = chromosomes[0].getCost();
 			thisCost = cost;
