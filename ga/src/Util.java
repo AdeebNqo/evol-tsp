@@ -60,7 +60,7 @@ class Util{
 				return new Chromosome(newChromosome);
 				}
 			case None:{
-				return new Chromosome(one==null? two:one);
+				return new Chromosome(Math.random() <= 0.5? two:one);
 				}
 			case Mix:{
 				return crossover(one, two, one.cost > two.cost? Crossover.OnePoint: Crossover.TwoPoint);
