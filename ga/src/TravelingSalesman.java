@@ -237,7 +237,7 @@ public class TravelingSalesman extends Applet implements Runnable {
 				pool.add(offspring);
 			}
 			//survivor selection			
-			chromosomes = pool.getSurvivors(SurvivorSelection.Elitism);
+			chromosomes = pool.getSurvivors(SurvivorSelection.Children);
 			
 			Chromosome.sortChromosomes(chromosomes, matingPopulationSize);
 
