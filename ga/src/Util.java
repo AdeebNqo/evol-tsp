@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 class Util{
 	public static Chromosome crossover(Chromosome one, Chromosome two, Crossover mode){
 		switch(mode){
@@ -15,11 +15,11 @@ class Util{
 				}
 				if (a<one.cityList.length){
 					for (int j=0; j<=end; ++j){
-						if (! Arrays.asList(newChromosome).contains(two.cityList[j])){
-							newChromosome[a] = two.cityList[j];
-							++a;
-							if (!(a<one.cityList.length)){
-								break;
+						if (a<one.cityList.length){						
+							ArrayList<Integer> newchr = toArrayList(newChromosome);
+							if (!newchr.contains(two.cityList[j])){
+								newChromosome[a] = two.cityList[j];
+								++a;
 							}
 						}
 					}
@@ -48,7 +48,7 @@ class Util{
 				int start = min+1;
 				if (start<max){
 					for (int i=0; i<one.cityList.length; ++i){
-						if (!Arrays.asList(newChromosome).contains(two.cityList[i])){
+						if (!toArrayList(newChromosome).contains(two.cityList[i])){
 							newChromosome[start] = two.cityList[i];
 							++start;
 							if (start>=max){
@@ -88,20 +88,28 @@ class Util{
 		boolean[] bitmap = new boolean[mzip+1];
 		for (int item: chromo.cityList){
 			if (!(bitmap[item] ^= true)){
-				for (int item2: chromo.cityList){
-					System.out.print(item2+"->");
-				}
-				System.out.println();
 				return false;
 			}
 		}
 		//no duplicates -- check if all cities appear
 		for (int i=0; i<cities.length; ++i){		
-			if (!Arrays.asList(chromo.cityList).contains(i)){
+			if (!toArrayList(chromo.cityList).contains(i)){
 				System.out.println("missing cities");
 				return false;
 			}
 		}
 		return true;	
+	}
+	/*
+
+	Array to arraylist
+
+	*/
+	public static ArrayList toArrayList(int[] values){
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for (int val: values){
+			list.add(val);
+		}
+		return list;
 	}
 }

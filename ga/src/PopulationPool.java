@@ -28,7 +28,7 @@ class PopulationPool{
 				int popSize = pop.size();
 				int j = 0;
 				for (int i=popSize-1; j<populationSize && i>=0; --i,++j){					
-					tmp[j] = (Chromosome) pop.get(i);
+					tmp[j] = pop.get(i);
 				}
 				return tmp;
 			}
@@ -36,7 +36,7 @@ class PopulationPool{
 				int currentSize = pop.size();
 				int index = 0;
 				for (int i=oldpopIndex; i<currentSize; ++i, ++index){
-					tmp[index] = (Chromosome)pop.get(i);
+					tmp[index] = pop.get(i);
 				}
 				return tmp;
 			}
@@ -56,9 +56,9 @@ class PopulationPool{
 					double s = 0;
 					int i=0;
 					for (; s<=r; ++i){
-						s+=((Chromosome)pop.get(i)).getCost();
+						s+=pop.get(i).getCost();
 					}
-					tmp[j] =  (Chromosome)pop.get(i);
+					tmp[j] =  pop.get(i);
 				}
 				return tmp;
 			case Tournament:
@@ -68,10 +68,10 @@ class PopulationPool{
 					int one = Util.getRandomIndex(0,populationSize-1);
 					int two = Util.getRandomIndex(0,populationSize-1);
 					if (R < prob){
-						tmp[i] = (Chromosome) pop.get(one);
+						tmp[i] =  pop.get(one);
 					}
 					else{
-						tmp[i] = (Chromosome) pop.get(two);
+						tmp[i] = pop.get(two);
 					}
 				}
 				return tmp;
