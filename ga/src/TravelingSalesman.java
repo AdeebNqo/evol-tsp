@@ -231,8 +231,8 @@ public class TravelingSalesman extends Applet implements Runnable {
 			for (int i=0; i<populationSize; ++i){		
 				Chromosome[] parents = pool.getParents(ParentSelection.RouletteWheel,-1);
 			
-				Crossover crossoverStatus = Math.random() < crossoverRate ? Crossover.OnePoint : Crossover.None;
-				Chromosome offspring = Util.crossover(parents[0],parents[1],Crossover.OnePoint);
+				Crossover crossoverRule = Math.random() < crossoverRate ? Crossover.OnePoint : Crossover.None;
+				Chromosome offspring = Util.crossover(parents[0],parents[1],crossoverRule);
 				offspring.calculateCost(cities);
 				offspring.mutate(Mutation.NormalRandom);
 				pool.add(offspring);
@@ -252,6 +252,7 @@ public class TravelingSalesman extends Applet implements Runnable {
 			setStatus("Generation " + generation + " Cost " + (int) thisCost);
 
 			update();
+			System.out.println(thisCost);
 			
 		}
 		setStatus("Solution found after " + generation + " generations.");

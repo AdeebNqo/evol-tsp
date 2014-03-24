@@ -37,7 +37,7 @@ class Chromosome{
 	Chromosome(Chromosome original) {
 		this.cityList = original.cityList;
 		this.cities = original.cities;
-		calculateCost();
+		//calculateCost();
 	}
 	
 	/**

@@ -56,7 +56,7 @@ class PopulationPool{
 					double s = 0;
 					int i=0;
 					Chromosome curr = null;
-					for (; s<=r ; ++i){
+					for (; s<=r && i<pop.size(); ++i){
 						curr = pop.get(i);
 						s+=curr.getCost();
 					}
