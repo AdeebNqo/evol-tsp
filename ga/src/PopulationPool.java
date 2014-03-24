@@ -55,10 +55,12 @@ class PopulationPool{
 					double r = Util.getRandomIndex(0,S);//n
 					double s = 0;
 					int i=0;
-					for (; s<=r; ++i){
-						s+=pop.get(i).getCost();
+					Chromosome curr = null;
+					for (; s<=r ; ++i){
+						curr = pop.get(i);
+						s+=curr.getCost();
 					}
-					tmp[j] =  pop.get(i);
+					tmp[j] =  curr;//pop.get(i);
 				}
 				return tmp;
 			case Tournament:
