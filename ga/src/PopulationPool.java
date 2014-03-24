@@ -20,15 +20,26 @@ class PopulationPool{
 			add(item);
 		}
 	}
+	double eliteProportion = 0.1;
 	public Chromosome[] getSurvivors(SurvivorSelection mode){
 		Chromosome[] tmp = new Chromosome[populationSize];
 		switch(mode){
 			case Elitism:{
-				Collections.sort(pop,new ChromosomeCompare());
-				int popSize = pop.size();
-				int j = 0;
-				for (int i=popSize-1; j<populationSize && i>=0; --i,++j){					
+				//retrieving the elite group
+				Collections.sort(pop,new ChromosomeCompare());				
+				int eliteSize = (int) eliteProportion*populationSize;
+				int end = pop.size()-eliteSize;
+				int j=0;				
+				for (int i=pop.size()-1; i>end; --i,++j){
 					tmp[j] = pop.get(i);
+					pop.remove(i);
+				}
+				//filling in left spots
+				int leftspots = populationSize-eliteSize;
+				for (int i=0; i<leftspots; ++i, ++j){
+					int index = Util.getRandomIndex(0,pop.size()-1);
+					tmp[j] = pop.get(index);
+					pop.remove(index);
 				}
 				return tmp;
 			}
