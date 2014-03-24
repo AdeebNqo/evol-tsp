@@ -226,13 +226,17 @@ public class TravelingSalesman extends Applet implements Runnable {
 			//parent selection, crossover and mutation
 			for (int i=0; i<populationSize; ++i){		
 				Chromosome[] parents = pool.getParents(ParentSelection.Tournament,-1);
-				Chromosome offspring = Util.crossover(parents[0],parents[1],Crossover.Mix);
+				Chromosome offspring = Util.crossover(parents[0],parents[1],Crossover.OnePoint);
+				if (!Util.isValid(offspring, cities)){
+					System.out.println("crossover causing invalid paths");
+					System.exit(0);
+				}
 				offspring.mutate(Mutation.RandomOnlyImproving);
 				pool.add(offspring);
 			}
 			//survivor selection			
 			chromosomes = pool.getSurvivors(SurvivorSelection.Elitism);
-
+			
 			Chromosome.sortChromosomes(chromosomes, matingPopulationSize);
 
 			double cost = chromosomes[0].getCost();

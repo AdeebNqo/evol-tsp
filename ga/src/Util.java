@@ -78,4 +78,30 @@ class Util{
 	public static double getRandomIndex(double min, double max) {
 		return min + (double) (Math.random() * ((max - min) + 1));
 	}
+	/*
+
+	Method for checking if chromosome is valid
+
+	*/
+	public static boolean isValid(Chromosome chromo, City[] cities){
+		final int  mzip = 99999;
+		boolean[] bitmap = new boolean[mzip+1];
+		for (int item: chromo.cityList){
+			if (!(bitmap[item] ^= true)){
+				for (int item2: chromo.cityList){
+					System.out.print(item2+"->");
+				}
+				System.out.println();
+				return false;
+			}
+		}
+		//no duplicates -- check if all cities appear
+		for (int i=0; i<cities.length; ++i){		
+			if (!Arrays.asList(chromo.cityList).contains(i)){
+				System.out.println("missing cities");
+				return false;
+			}
+		}
+		return true;	
+	}
 }
