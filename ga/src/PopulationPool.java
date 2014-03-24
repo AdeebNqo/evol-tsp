@@ -56,11 +56,12 @@ class PopulationPool{
 					double s = 0;
 					int i=0;
 					Chromosome curr = null;
-					for (; s<=r && i<pop.size(); ++i){
+					int size = pop.size();
+					for (; s<=r && i<size; ++i){
 						curr = pop.get(i);
 						s+=curr.getCost();
 					}
-					tmp[j] =  curr;//pop.get(i);
+					tmp[j] =  curr;
 				}
 				return tmp;
 			case Tournament:
