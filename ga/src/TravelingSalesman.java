@@ -220,41 +220,47 @@ public class TravelingSalesman extends Applet implements Runnable {
 
 		update();
 
-		while (generation < 1000) {
+		//Chromosome[] chromoCache = chromosomes;
+		//for (int index=0; index<50; ++index){
+		//	chromosomes = chromoCache;		
+			while (generation < 1000) {
+				generation++;
 
-			generation++;
-
-			PopulationPool pool = new PopulationPool(populationSize);
-			pool.add(chromosomes);
+				PopulationPool pool = new PopulationPool(populationSize);
+				pool.add(chromosomes);
 	
-			//parent selection, crossover and mutation
-			for (int i=0; i<populationSize; ++i){		
-				Chromosome[] parents = pool.getParents(ParentSelection.RouletteWheel);
+				//parent selection, crossover and mutation
+				for (int i=0; i<populationSize; ++i){		
+					Chromosome[] parents = pool.getParents(ParentSelection.RouletteWheel);
 			
-				Crossover crossoverRule = Math.random() < crossoverRate ? Crossover.OnePoint : Crossover.None;
-				Chromosome offspring = Util.crossover(parents[0],parents[1],crossoverRule);
-				offspring.calculateCost(cities);
-				offspring.mutate(Mutation.NormalRandom);
-				pool.add(offspring);
+					Crossover crossoverRule = Math.random() < crossoverRate ? Crossover.OnePoint : Crossover.None;
+					Chromosome offspring = Util.crossover(parents[0],parents[1],crossoverRule);
+					offspring.calculateCost(cities);
+					offspring.mutate(Mutation.NormalRandom);
+					pool.add(offspring);
+				}
+				//survivor selection			
+				chromosomes = pool.getSurvivors(SurvivorSelection.Elitism);
+			
+				Chromosome.sortChromosomes(chromosomes, populationSize);//matingPopulationSize);
+
+				double cost = chromosomes[0].getCost();
+				thisCost = cost;
+
+				NumberFormat nf = NumberFormat.getInstance();
+				nf.setMinimumFractionDigits(2);
+				nf.setMinimumFractionDigits(2);
+
+				setStatus("Generation " + generation + " Cost " + (int) thisCost);
+
+				update();
 			}
-			//survivor selection			
-			chromosomes = pool.getSurvivors(SurvivorSelection.Elitism);
-			
-			Chromosome.sortChromosomes(chromosomes, populationSize);//matingPopulationSize);
-
-			double cost = chromosomes[0].getCost();
-			thisCost = cost;
-
-			NumberFormat nf = NumberFormat.getInstance();
-			nf.setMinimumFractionDigits(2);
-			nf.setMinimumFractionDigits(2);
-
-			setStatus("Generation " + generation + " Cost " + (int) thisCost);
-
-			update();
-			//System.out.println(thisCost);
-			
-		}
+			//System.out.print(thisCost);
+			//generation =0;
+			//if (index!=49){
+			//	System.out.print(",");			
+			//}
+		//}
 		setStatus("Solution found after " + generation + " generations.");
 	}
 
