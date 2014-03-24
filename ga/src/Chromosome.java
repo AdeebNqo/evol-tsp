@@ -117,27 +117,31 @@ class Chromosome{
 		switch(mode){
 			case NormalRandom:{
 				for (int i=0; i<cityList.length; ++i){
-					int indexone = Util.getRandomIndex(0, cityList.length-1);
-					int temp = cityList[indexone];
-					cityList[indexone] = cityList[i];
-					cityList[i] = temp;
+					if (Math.random() < mutationRate){
+						int indexone = Util.getRandomIndex(0, cityList.length-1);
+						int temp = cityList[indexone];
+						cityList[indexone] = cityList[i];
+						cityList[i] = temp;
+					}
 				}
 				break;
 			}
 			case RandomOnlyImproving:{
 				double cacheCost = this.cost;
-		
-				int indexone = Util.getRandomIndex(0, cityList.length-1);
-				int indextwo = Util.getRandomIndex(0, cityList.length-1);
-				int temp = cityList[indexone];
-				cityList[indexone] = cityList[indextwo];
-				cityList[indextwo] = temp;
+				for (int i=0; i<cityList.length; ++i){
+					if (Math.random() < mutationRate){
+						int indexone = Util.getRandomIndex(0, cityList.length-1);
+						int temp = cityList[indexone];
+						cityList[indexone] = cityList[i];
+						cityList[i] = temp;
 
-				if (getCost() < cacheCost){
-					//rearrange to original
-					int temp2 = cityList[indexone];
-					cityList[indexone] = cityList[indextwo];
-					cityList[indextwo] = temp2;
+						if (getCost() < cacheCost){
+							//rearrange to original
+							int temp2 = cityList[indexone];
+							cityList[indexone] = cityList[i];
+							cityList[i] = temp2;
+						}
+					}
 				}
 			}
 		}
