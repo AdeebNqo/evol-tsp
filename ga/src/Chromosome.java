@@ -24,7 +24,7 @@ class Chromosome{
 		}		
 		//Knuth shuffle
 		for (int i=cities.length-1; i>=0; --i){
-			int j = getRandomIndex(0, i);
+			int j = Util.getRandomIndex(0, i);
 			int tmp  = cityList[j];
 			cityList[j] = cityList[i];
 			cityList[i] = tmp;
@@ -115,8 +115,8 @@ class Chromosome{
 	int mutate(Mutation mode) {
 		switch(mode){
 			case NormalRandom:{
-				int indexone = getRandomIndex(0, cityList.length-1);
-				int indextwo = getRandomIndex(0, cityList.length-1);
+				int indexone = Util.getRandomIndex(0, cityList.length-1);
+				int indextwo = Util.getRandomIndex(0, cityList.length-1);
 				int temp = cityList[indexone];
 				cityList[indexone] = cityList[indextwo];
 				cityList[indextwo] = temp;
@@ -125,8 +125,8 @@ class Chromosome{
 			case RandomOnlyImproving:{
 				double cacheCost = this.cost;
 		
-				int indexone = getRandomIndex(0, cityList.length-1);
-				int indextwo = getRandomIndex(0, cityList.length-1);
+				int indexone = Util.getRandomIndex(0, cityList.length-1);
+				int indextwo = Util.getRandomIndex(0, cityList.length-1);
 				int temp = cityList[indexone];
 				cityList[indexone] = cityList[indextwo];
 				cityList[indextwo] = temp;
@@ -164,13 +164,5 @@ class Chromosome{
 				}
 			}
 		}
-	}
-
-	/*
-	 * 
-	 * Method for generating nums in a range
-	 */
-	public int getRandomIndex(int min, int max) {
-		return min + (int) (Math.random() * ((max - min) + 1));
 	}
 }
