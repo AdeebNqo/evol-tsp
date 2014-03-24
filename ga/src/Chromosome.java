@@ -29,9 +29,11 @@ class Chromosome{
 			cityList[j] = cityList[i];
 			cityList[i] = tmp;
 		}
+		calculateCost();
 	}
 	Chromosome(int[] cityList) {
 		this.cityList = cityList;
+		calculateCost();
 	}
 	Chromosome(Chromosome original) {
 		this.cityList = original.cityList;
