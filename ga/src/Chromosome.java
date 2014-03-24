@@ -173,7 +173,7 @@ class Chromosome{
 	*/
 	public void display(){
 		for (int cityid: cityList){
-			System.out.println(cityid+"->");
+			System.out.print(cityid+"->");
 		}
 		System.out.println();
 	}
