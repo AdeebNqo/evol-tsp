@@ -80,6 +80,10 @@ public class TravelingSalesman extends Applet implements Runnable {
 	 */
 	private String status = "";
 
+	/*
+	Probability of doing a crossover
+	*/
+	double crossoverRate = 0.8;
 	public void init() {
 		setLayout(new BorderLayout());
 
@@ -226,12 +230,9 @@ public class TravelingSalesman extends Applet implements Runnable {
 			//parent selection, crossover and mutation
 			for (int i=0; i<populationSize; ++i){		
 				Chromosome[] parents = pool.getParents(ParentSelection.RouletteWheel,-1);
-				//parents[0].display();
-				//System.out.println("--\t--\t--");
-				//parents[0].display();
-				//System.out.println("--\t--\t--");
-				Chromosome offspring = Util.crossover(parents[0],parents[1],Crossover.None);
-				//offspring.display();
+			
+				Crossover crossoverStatus = Math.random() < crossoverRate ? Crossover.OnePoint : Crossover.None;
+				Chromosome offspring = Util.crossover(parents[0],parents[1],Crossover.OnePoint);
 				offspring.calculateCost(cities);
 				offspring.mutate(Mutation.NormalRandom);
 				pool.add(offspring);
