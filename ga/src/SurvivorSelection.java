@@ -1,3 +1,3 @@
 enum SurvivorSelection{
-	Elitism
+	Elitism, Children
 };

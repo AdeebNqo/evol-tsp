@@ -5,6 +5,8 @@ class PopulationPool{
 	
 	ArrayList<Chromosome> pop;
 	int populationSize;
+	
+	int oldpopIndex  =0;
 	public PopulationPool(int populationSize){
 		this.populationSize = populationSize;
 		pop = new ArrayList<Chromosome>();	
@@ -13,6 +15,7 @@ class PopulationPool{
 		pop.add(chromo);
 	}
 	public void add(Chromosome[] chromos){
+		oldpopIndex = chromos.length;
 		for (Chromosome item: chromos){
 			add(item);
 		}
@@ -20,15 +23,23 @@ class PopulationPool{
 	public Chromosome[] getSurvivors(SurvivorSelection mode){
 		Chromosome[] tmp = new Chromosome[populationSize];
 		switch(mode){
-			case Elitism:
+			case Elitism:{
 				Collections.sort(pop,new ChromosomeCompare());
 				int popSize = pop.size();
 				int j = 0;
-				for (int i=popSize-1; j<=populationSize && i>=0; --i,++j){
-					//System.out.println(i);					
+				for (int i=popSize-1; j<=populationSize && i>=0; --i,++j){					
 					tmp[j] = (Chromosome) pop.get(i);
 				}
 				return tmp;
+			}
+			case Children:{
+				int currentSize = pop.size();
+				int index = 0;
+				for (int i=oldpopIndex; i<currentSize; ++i, ++index){
+					tmp[index] = (Chromosome)pop.get(i);
+				}
+				return tmp;
+			}
 		}
 		return null;
 	}

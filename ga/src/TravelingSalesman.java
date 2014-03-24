@@ -220,10 +220,6 @@ public class TravelingSalesman extends Applet implements Runnable {
 
 			generation++;
 
-			//evaluating fitness for chromosomes
-			for (Chromosome individual:chromosomes){
-				individual.calculateCost();
-			}
 			PopulationPool pool = new PopulationPool(populationSize);
 			pool.add(chromosomes);
 	
@@ -232,9 +228,10 @@ public class TravelingSalesman extends Applet implements Runnable {
 				Chromosome[] parents = pool.getParents(ParentSelection.Tournament,-1);
 				Chromosome offspring = Util.crossover(parents[0],parents[1],Crossover.Mix);
 				offspring.mutate(Mutation.RandomOnlyImproving);
+				pool.add(offspring);
 			}
 			//survivor selection			
-			chromosomes = pool.getSurvivors(SurvivorSelection.Elitism);
+			chromosomes = pool.getSurvivors(SurvivorSelection.Children);
 
 			Chromosome.sortChromosomes(chromosomes, matingPopulationSize);
 
@@ -248,7 +245,7 @@ public class TravelingSalesman extends Applet implements Runnable {
 			setStatus("Generation " + generation + " Cost " + (int) thisCost);
 
 			update();
-
+			
 		}
 		setStatus("Solution found after " + generation + " generations.");
 	}
