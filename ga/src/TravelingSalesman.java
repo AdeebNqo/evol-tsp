@@ -230,7 +230,7 @@ public class TravelingSalesman extends Applet implements Runnable {
 				//System.out.println("--\t--\t--");
 				//parents[0].display();
 				//System.out.println("--\t--\t--");
-				Chromosome offspring = Util.crossover(parents[0],parents[1],Crossover.Mix);
+				Chromosome offspring = Util.crossover(parents[0],parents[1],Crossover.None);
 				//offspring.display();
 				offspring.calculateCost(cities);
 				offspring.mutate(Mutation.NormalRandom);
