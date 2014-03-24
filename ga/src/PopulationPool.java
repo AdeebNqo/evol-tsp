@@ -43,7 +43,7 @@ class PopulationPool{
 		}
 		return null;
 	}
-	public Chromosome[] getParents(ParentSelection method, double prob){
+	public Chromosome[] getParents(ParentSelection method){
 		Chromosome[] tmp = new Chromosome[2];		
 		switch(method){
 			case RouletteWheel: 
