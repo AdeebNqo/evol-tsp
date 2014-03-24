@@ -64,20 +64,6 @@ class PopulationPool{
 					tmp[j] =  curr;
 				}
 				return tmp;
-			case Tournament:
-				for (int i=0; i<2; ++i){
-					double R = Math.random();
-					//randomly picking two individuals from the populationSize
-					int one = Util.getRandomIndex(0,populationSize-1);
-					int two = Util.getRandomIndex(0,populationSize-1);
-					if (R < prob){
-						tmp[i] =  pop.get(one);
-					}
-					else{
-						tmp[i] = pop.get(two);
-					}
-				}
-				return tmp;
 			default:
 				return null;
 		}
